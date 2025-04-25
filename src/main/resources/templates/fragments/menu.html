@@ -1,0 +1,47 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<div class="sidebar-menu" th:fragment="menu">
+    <ul class="menu">   		
+        <li th:class="'sidebar-item ' + (${paginaActual} == 'index' ? 'active' : '')" >
+            <a th:href="@{/index}" class="sidebar-link">
+                <i class="bi bi-house"></i>
+                <span>Inicio</span>
+            </a>
+        </li>
+
+        <li th:if="${rolId == 3}" th:class="'sidebar-item ' + (${paginaActual} == 'solicitudes' ? 'active' : '')">
+            <a th:href="@{/solicitudes}" class="sidebar-link">
+                <i class="bi bi-app-indicator"></i>
+                <span>Solicitudes</span>
+            </a>
+        </li>
+        
+       <li th:if="${rolId == 1 or rolId == 2}"
+  				  th:class="'sidebar-item ' + (${paginaActual} == 'adm-solicitudes' ? 'active' : '')">
+            <a th:href="@{/adm-solicitudes}" class="sidebar-link">
+                <i class="bi bi-nut"></i>
+                <span>Admin. solicitudes</span>
+            </a>
+        </li>
+
+        <li th:class="'sidebar-item ' + (${paginaActual} == 'perfil' ? 'active' : '')">
+            <a th:href="@{/perfil}" class="sidebar-link">
+                <i class="bi bi-person"></i>
+                <span>Perfil</span>
+            </a>
+        </li>
+
+        <li th:class="'sidebar-item ' + (${paginaActual} == 'contenido-gratuito' ? 'active' : '')">
+            <a th:href="@{/contenido-gratuito}" class="sidebar-link">
+                <i class="bi bi-menu-button-wide"></i>
+                <span>Contenido gratuito</span>
+            </a>
+        </li>
+
+        <li th:class="'sidebar-item ' + (${paginaActual} == 'contacto' ? 'active' : '')">
+            <a th:href="@{/contacto}" class="sidebar-link">
+                <i class="bi bi-envelope"></i>
+                <span>Contacto</span>
+            </a>
+        </li>
+    </ul>
+</div>

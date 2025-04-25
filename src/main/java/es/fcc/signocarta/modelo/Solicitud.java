@@ -1,5 +1,6 @@
 package es.fcc.signocarta.modelo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,14 +19,19 @@ public class Solicitud {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;	
-	private String observaciones;	
+	
+	private String observaciones;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_estado",referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_estado_solicitud"))
 	private Estado estado;	
+	
 	@OneToMany(mappedBy = "solicitud", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Documento> listaDocumentos;
+	private List<Documento> listaDocumentos = new ArrayList<Documento>();
+	
 	private Date fechaRegistro;
-	@ManyToOne
+	
+	@ManyToOne	
 	@JoinColumn(name = "id_usuarioApp", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_usuarioApp_solicitud"))
 	private UsuarioAplicacion usuarioApp;
 
@@ -67,6 +73,14 @@ public class Solicitud {
 
 	public void setListaDocumentos(List<Documento> listaDocumentos) {
 		this.listaDocumentos = listaDocumentos;
+	}
+
+	public UsuarioAplicacion getUsuarioApp() {
+		return usuarioApp;
+	}
+
+	public void setUsuarioApp(UsuarioAplicacion usuarioApp) {
+		this.usuarioApp = usuarioApp;
 	}
 	
 

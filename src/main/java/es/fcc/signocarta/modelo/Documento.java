@@ -13,6 +13,7 @@ public class Documento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	private String nombre;
 	private String origen;
 	private String ruta;
 	@ManyToOne
@@ -42,7 +43,12 @@ public class Documento {
 	public void setSolicitud(Solicitud solicitud) {
 		this.solicitud = solicitud;
 	}
-	
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 	
 
 }

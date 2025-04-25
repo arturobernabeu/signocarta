@@ -1,18 +1,21 @@
 package es.fcc.signocarta.modelo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
 @Entity
 public class UsuarioTrabajador extends Usuario {
-	private String cod_trabajador;
+
+	@Column(name = "cod_trabajador")
+	private String codTrabajador;
 	private String puesto;
 
-	public String getCod_trabajador() {
-		return cod_trabajador;
+	public String getCodTrabajador() {
+		return codTrabajador;
 	}
 
-	public void setCod_trabajador(String cod_trabajador) {
-		this.cod_trabajador = cod_trabajador;
+	public void setCodTrabajador(String codTrabajador) {
+		this.codTrabajador = codTrabajador;
 	}
 
 	public String getPuesto() {
