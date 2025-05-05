@@ -3,6 +3,7 @@ package es.fcc.signocarta.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -56,7 +57,7 @@ public class RegistroController {
 	 *         al formulario si hay errores.
 	 */
 	@PostMapping("/registro/crear")
-	public String crearUsuario(@Valid EntradaRegistro solicitudRegistro, BindingResult result) {
+	public String crearUsuario(@Valid @ModelAttribute("solicitudRegistro") EntradaRegistro solicitudRegistro, BindingResult result, Model model) {
 		// Validar si las contraseñas coinciden
 		if (!solicitudRegistro.getPassword().equals(solicitudRegistro.getPasswordRepeat())) {
 			result.rejectValue("passwordRepeat", "error.passwordRepeat", "Las contraseñas no coinciden");
@@ -64,7 +65,7 @@ public class RegistroController {
 
 		// Si hay errores, volver al formulario
 		if (result.hasErrors()) {
-			return "/registro"; // o el nombre de tu vista
+			return "registro"; // o el nombre de tu vista
 		}
 		// comprobamos si es un email válido antes de poder hacer el registro
 		if (!Validation.isEmail(solicitudRegistro.getEmail())) {

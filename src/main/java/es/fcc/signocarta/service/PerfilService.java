@@ -2,7 +2,6 @@ package es.fcc.signocarta.service;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.fcc.signocarta.controller.entrada.EntradaRegistro;
@@ -75,9 +74,8 @@ public class PerfilService {
 	 */
 	@Transactional
 	public void actualizarDatos(EntradaRegistro datos, Long id) {
-
-		Optional<Usuario> optionalUsuario = usuarioRepository.findById(id.intValue());// almacenamos el usuario que nos
-																						// está llegando por parámetro
+		// almacenamos el usuario que nos está llegando por parámetro
+		Optional<Usuario> optionalUsuario = usuarioRepository.findById(id.intValue());
 		// con este if nos aseguramos primero que hay algo dentro de optionalUsuario
 		if (optionalUsuario.isPresent()) {
 			// controlamos si es un usuario aplicacion para grabar en la tabla que le
@@ -90,12 +88,9 @@ public class PerfilService {
 				usuarioApp.setNombre(datos.getNombre());
 				usuarioApp.setApellidos(datos.getApellidos());
 				usuarioApp.setEmail(datos.getEmail());
-				// comprobamos si ha modificado la contraseña
-				if (datos.getPassword() == datos.getPasswordRepeat() & datos.getPassword() != null
-						& datos.getPassword() != "") {
+				if (datos.getPassword() != null && !datos.getPassword().isBlank()) {
 					usuarioApp.setPassword(datos.getPassword());
 				}
-
 			} else { // en el caso que sea otro tipo de rol
 				Optional<UsuarioTrabajador> optionalUsuarioTrab = trabajadorRepository.findById(id.intValue());
 				UsuarioTrabajador usuarioTrabajador = optionalUsuarioTrab.get();
@@ -103,17 +98,12 @@ public class PerfilService {
 				usuarioTrabajador.setNombre(datos.getNombre());
 				usuarioTrabajador.setApellidos(datos.getApellidos());
 				// comprobamos si ha modificado la contraseña
-				if (datos.getPassword() == datos.getPasswordRepeat() & datos.getPassword() != null
-						& datos.getPassword() != "") {
+				if (datos.getPassword() != null && !datos.getPassword().isBlank()) {
 					usuarioTrabajador.setPassword(datos.getPassword());
 				}
-
 			}
-
 		} else {
 			throw new RuntimeException("Usuario no encontrado");
 		}
-
 	}
-
 }

@@ -2,11 +2,13 @@ package es.fcc.signocarta.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import es.fcc.signocarta.controller.entrada.EntradaRegistro;
+import es.fcc.signocarta.controller.util.Validation;
 import es.fcc.signocarta.modelo.Usuario;
 import es.fcc.signocarta.service.PerfilService;
 import es.fcc.signocarta.service.UsuarioService;
@@ -76,7 +78,7 @@ public class PerfilController {
 	 * @return Redirección a la pantalla de perfil con parámetro de confirmación.
 	 */
 	@PostMapping("/perfil/guardar")
-	public String guardarPerfil(@ModelAttribute EntradaRegistro datos, HttpSession session) {
+	public String guardarPerfil(@ModelAttribute("usuario") EntradaRegistro datos, HttpSession session, BindingResult result, Model model) {
 
 		Object usuarioIdObj = session.getAttribute("usuarioId");
 		Long usuarioId;
@@ -85,6 +87,38 @@ public class PerfilController {
 		if (usuarioId == null) {
 			return "redirect:/login";
 		}
+		
+		if (datos.getNombre().isBlank()) {
+			result.rejectValue("nombre", "error.nombre", "No puede dejar su nombre en blanco");
+			return "perfil";
+		}
+		
+		if (datos.getApellidos().isBlank()) {
+			result.rejectValue("apellidos", "error.apellidos", "No puede dejar sus apellidos en blanco");
+			return "perfil";
+		}
+		
+		if (datos.getEmail().isBlank()) {
+			result.rejectValue("email", "error.email", "No puede dejar su email en blanco.");
+			return "perfil";
+		}
+		
+		if (!Validation.isEmail(datos.getEmail())) {
+			result.rejectValue("email", "error.email", "Escriba un email válido");
+			return "registro";
+		}
+		
+		if (!datos.esPasswordModificada()) {
+			if (!datos.esPasswordValida()) {
+				result.rejectValue("password", "error.password", "La contraseña debe tener al menos 6 caracteres, una mayúscula y un número");
+				return "perfil";
+			}
+			
+			result.rejectValue("passwordRepeat", "error.passwordRepeat", "Las contraseñas no coinciden.");
+			return "perfil";
+		}
+		
+	
 		// actualizamos datos del usuario
 		perfilService.actualizarDatos(datos, usuarioId);
 

@@ -73,26 +73,32 @@
                                                     <div class="form-group">
                                                         <label for="nombre">Nombre</label>
                                                         <input type="text" id="nombre" class="form-control" th:field="*{nombre}" name="nombre">
+                                                        <div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="text-danger"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="apellidos">Apelllidos</label>
                                                         <input type="text" id="apellidos" class="form-control" th:field="*{apellidos}" name="apellidos">
+                                                        <div th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}" class="text-danger"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="email">Email</label>
                                                         <input type="email" id="email" class="form-control" th:field="*{email}" name="email">
+                                                        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group">
                                                         <label for="password">Cambiar contraseña</label>
                                                         <input type="password" id="password" class="form-control" th:field="*{password}" name="password">
+                                                        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></div>
+                                                        
                                                         <label for="password">Repetir contraseña</label>
-                                                        <input type="password" id="password" class="form-control" th:field="*{passwordRepeat}" name="password">
+                                                        <input type="password" id="passwordRepeat" class="form-control" th:field="*{passwordRepeat}" name="passwordRepeat">
+                                                        <div th:if="${#fields.hasErrors('passwordRepeat')}" th:errors="*{passwordRepeat}" class="text-danger"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 d-flex justify-content-end">
@@ -123,7 +129,6 @@
     </div>
     <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendors/apexcharts/apexcharts.js"></script>
     <script src="assets/js/pages/dashboard.js"></script>
     <script src="assets/js/main.js"></script>
     <!--  <script src="assets/js/menu.js"></script>-->

@@ -166,8 +166,7 @@ public class SolicitudAdmService {
 			asignacion.setSolicitud(solicitud);
 			asignacion.setUsuarioTrabajador(trabajador);
 			asignacionRepository.saveAndFlush(asignacion);
-			solicitud.setEstado(estadoRepository.findById(2).get());
-			solicitudRepository.save(solicitud);
+			
 
 			// creamos historico del cambio
 			Historico historico = new Historico();
@@ -176,9 +175,13 @@ public class SolicitudAdmService {
 			if (solicitud.getPresupuesto() == null) {
 				historico.setEstado(estadoRepository.findById(2).get());
 				historico.setEvento("Solicitud asignada para presupuestar");
+				solicitud.setEstado(estadoRepository.findById(2).get());
+				solicitudRepository.save(solicitud);
 			} else {
 				historico.setEstado(estadoRepository.findById(6).get());
 				historico.setEvento("Solicitud asignada para gestionar");
+				solicitud.setEstado(estadoRepository.findById(6).get());
+				solicitudRepository.save(solicitud);
 			}
 			historico.setFechaRegistro(new Date());
 			historicoRepository.save(historico);

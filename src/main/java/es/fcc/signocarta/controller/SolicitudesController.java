@@ -64,28 +64,13 @@ public class SolicitudesController {
 		if (usuarioId == null) {
 			return "redirect:/login";
 		}
-		Usuario usuarioLogado = usuarioService.buscarPorId(usuarioId).get();// almaceno el usuario logado
-		// paso el idRol al modelo para controlar las opciones que tienen que apareceren
-		// el menu lateral
-		int rolId = usuarioLogado.getRol().getId();
-		model.addAttribute("rolId", rolId);
+		// cargamos los datos que tienen que aparecer siempre en pantalla
+		prepararVistaSolicitudes(model, usuarioId);
+		
 		// Añadimos al modelo entradaSolicitud que es donde se almacenaran los datos que
 		// recogemos de pantalla
 		model.addAttribute("entradaSolicitud", new EntradaSolicitud());
-
-		// vamos a almacenar en una lista las solicitudes que tiene el usuario
-		List<Solicitud> listaSolicitudes = solicitudService.solicitudesPorUsuario(usuarioId.intValue());
-		// como necesitamos pasar al modelo una lista de objetos SalidaHistorico,
-		// crearemos uno por cada solicitud y almacenaremos en una lista
-		List<SalidaHistorico> listaSalida = new ArrayList<>();
-		for (int i = 0; i < listaSolicitudes.size(); i++) {
-			listaSalida.add(solicitudService.datosSolicitudHistorico(listaSolicitudes.get(i)));
-		}
-		// y añadimos la lista al modelo para que pueda acceder a los datos necesarios y
-		// pintarlos en la tabla de historico
-		model.addAttribute("salidas", listaSalida);
-
-		model.addAttribute("paginaActual", "solicitudes");
+	
 		return "solicitudes";
 	}
 
@@ -98,14 +83,15 @@ public class SolicitudesController {
 	 * @return Redirección a la vista de solicitudes.
 	 */
 	@PostMapping("/solicitudes/crear")
-	public String crearSolicitud(@Valid @ModelAttribute EntradaSolicitud entradaSolicitud, HttpSession session,
+	public String crearSolicitud(@Valid @ModelAttribute EntradaSolicitud entradaSolicitud, HttpSession session,Model model,
 			BindingResult result) {
 
 		Long usuarioId = (Long) session.getAttribute("usuarioId");
 
 		if (entradaSolicitud.getArchivo().isEmpty()) {
 			result.rejectValue("archivo", "error.archivo", "No ha seleccionado ningún archivo");
-			return "solicitudes";
+			prepararVistaSolicitudes(model, usuarioId);
+			return "/solicitudes";
 		}
 		try {
 
@@ -158,6 +144,45 @@ public class SolicitudesController {
 		solicitudService.aceptarPresupuestoPagar(id);
 		redirectAttributes.addFlashAttribute("mensaje", "Ha aceptado el presupuesto");
 		return "redirect:/solicitudes";
+	}
+	
+	/**
+	 * Prepara los datos necesarios para renderizar la vista de solicitudes de un usuario.
+	 * 
+	 * Este método carga y añade al modelo:
+	 * 
+	 *  El rol del usuario (para mostrar u ocultar opciones del menú).
+	 *  La lista de solicitudes del usuario.
+	 *	Una lista de objetos {@code SalidaHistorico} generados a partir de cada solicitud,
+	 *  necesarios para mostrar el historial en la tabla.
+	 *  El nombre de la página actual para resaltado en la interfaz.
+	 * 
+	 *
+	 * @param model El objeto {@code Model} donde se insertan los atributos necesarios para la vista.
+	 * @param usuarioId El ID del usuario autenticado, utilizado para recuperar sus solicitudes y rol.
+	 */
+	private void prepararVistaSolicitudes(Model model, Long usuarioId) {
+		
+		 Usuario usuarioLogado = usuarioService.buscarPorId(usuarioId).get();
+		// paso el idRol al modelo para controlar las opciones que tienen que apareceren
+			// el menu lateral
+		    int rolId = usuarioLogado.getRol().getId();
+		    model.addAttribute("rolId", rolId);
+		    
+			// vamos a almacenar en una lista las solicitudes que tiene el usuario
+			List<Solicitud> listaSolicitudes = solicitudService.solicitudesPorUsuario(usuarioId.intValue());
+			// como necesitamos pasar al modelo una lista de objetos SalidaHistorico,
+			// crearemos uno por cada solicitud y almacenaremos en una lista
+			List<SalidaHistorico> listaSalida = new ArrayList<>();
+			for (int i = 0; i < listaSolicitudes.size(); i++) {
+				listaSalida.add(solicitudService.datosSolicitudHistorico(listaSolicitudes.get(i)));
+			}
+			// y añadimos la lista al modelo para que pueda acceder a los datos necesarios y
+			// pintarlos en la tabla de historico
+			model.addAttribute("salidas", listaSalida);
+			
+			model.addAttribute("paginaActual", "solicitudes");
+		    
 	}
 
 }

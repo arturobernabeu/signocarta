@@ -162,7 +162,7 @@ INSERT INTO ESTADO VALUES ('5','Pagado');
 INSERT INTO ESTADO VALUES ('6','Gestionando solicitud');
 INSERT INTO ESTADO VALUES ('7','Gestionada / Finalizada');
 
-INSERT INTO `solicitud` VALUES (1, '2025-05-04 23:14:43.737000', 'Necesito aclaración del contrato ', 2, 7);
+INSERT INTO `solicitud` VALUES (1, '2025-05-04 23:14:43.737000', 'Necesito aclaración del contrato ', 6, 7);
 INSERT INTO `solicitud` VALUES (2, '2025-05-04 23:18:52.073000', 'Necesito interpretación por favor. ', 3, 3);
 
 INSERT INTO `presupuesto` VALUES (1, 'Presupuesto aceptado', '2025-05-04 23:15:09.878000', '2025-05-04 23:15:33.977000', 20, 'Tarjeta', 1);

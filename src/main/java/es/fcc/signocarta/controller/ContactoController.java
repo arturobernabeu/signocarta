@@ -88,7 +88,7 @@ public class ContactoController {
 		}
 		// enviar formulario.....
 		contactoService.enviarEmail(contacto);
-		return "index";
+		return "redirect:/index";
 	}
 
 }

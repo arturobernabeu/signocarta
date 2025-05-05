@@ -8,6 +8,8 @@ import jakarta.validation.constraints.Pattern;
 
 public class EntradaRegistro implements Serializable {
 
+	private static final String REGEX = "^(?=.*[A-Z])(?=.*\\d).{6,}$";
+ 
 	private static final long serialVersionUID = 3988505317614640842L;
 	@NotBlank(message = "Introduzca un nombre")
 	private String nombre;
@@ -18,13 +20,13 @@ public class EntradaRegistro implements Serializable {
 	private String email;
 	@Pattern(regexp = "^(?=.*[A-Z])(?=.*\\d).{6,}$", message = "La contraseña debe tener al menos 6 caracteres, una mayúscula y un número")
 	private String password;
-	
+
 	private String passwordRepeat;
-	
+
 	public EntradaRegistro(@NotBlank(message = "Introduzca un nombre") String nombre,
 			@NotBlank(message = "Introduzca un apellido") String apellidos,
 			@NotBlank(message = "Introduzca un email") @Email(message = "Introduzca un email válido") String email,
-			@Pattern(regexp = "^(?=.*[A-Z])(?=.*\\d).{6,}$", message = "La contraseña debe tener al menos 6 caracteres, una mayúscula y un número") String password,
+			@Pattern(regexp = REGEX, message = "La contraseña debe tener al menos 6 caracteres, una mayúscula y un número") String password,
 			String passwordRepeat) {
 		super();
 		this.nombre = nombre;
@@ -37,8 +39,6 @@ public class EntradaRegistro implements Serializable {
 	public EntradaRegistro() {
 		super();
 	}
-
-
 
 	public String getNombre() {
 		return nombre;
@@ -78,6 +78,27 @@ public class EntradaRegistro implements Serializable {
 
 	public void setPasswordRepeat(String passwordRepeat) {
 		this.passwordRepeat = passwordRepeat;
+	}
+
+	public boolean esPasswordModificada() {
+		boolean passwordEmpty = (password == null || password.isBlank());
+		boolean repeatEmpty = (passwordRepeat == null || passwordRepeat.isBlank());
+
+		if (passwordEmpty && repeatEmpty) {
+			return true; // No quiere cambiar contraseña, válido
+		}
+
+		if (!passwordEmpty && !repeatEmpty) {
+			return password.equals(passwordRepeat); // Ambos presentes, deben coincidir
+		}
+
+		return false; // Uno está vacío y el otro no
+	}
+
+	public boolean esPasswordValida() {
+		if (password == null)
+			return false;
+		return password.matches(REGEX);
 	}
 
 }
