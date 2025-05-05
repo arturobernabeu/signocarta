@@ -1,5 +1,6 @@
 package es.fcc.signocarta.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -13,6 +14,11 @@ import es.fcc.signocarta.repository.TrabajadorRepository;
 import es.fcc.signocarta.repository.UsuarioAppRepository;
 import es.fcc.signocarta.repository.UsuarioRepository;
 
+/**
+ * Servicio encargado de la gestión de usuarios en la aplicación. Incluye
+ * operaciones para obtener, guardar, y verificar usuarios, tanto trabajadores
+ * como usuarios de la aplicación, así como la gestión de roles.
+ */
 @Service
 public class UsuarioService {
 
@@ -21,34 +27,59 @@ public class UsuarioService {
 	private final UsuarioRepository usuarioRepository;
 	private final RolRepository rolRepository;
 
-	public UsuarioService(TrabajadorRepository trabajadorRepository, UsuarioAppRepository usuarioAppRepository, RolRepository rolRepository, UsuarioRepository usuarioRepository) {
+	public UsuarioService(TrabajadorRepository trabajadorRepository, UsuarioAppRepository usuarioAppRepository,
+			RolRepository rolRepository, UsuarioRepository usuarioRepository) {
 		super();
 		this.trabajadorRepository = trabajadorRepository;
 		this.usuarioAppRepository = usuarioAppRepository;
 		this.rolRepository = rolRepository;
 		this.usuarioRepository = usuarioRepository;
-		
+
 	}
 
-	// método para obtener un usuarioTrabajados
+	/**
+	 * Obtiene un usuario trabajador a partir del código de trabajador.
+	 *
+	 * @param codTrabajador Código único del trabajador.
+	 * @return Un objeto `Optional` que puede contener el `UsuarioTrabajador`
+	 *         correspondiente o estar vacío.
+	 */
 	public Optional<UsuarioTrabajador> obtenerUsuarioTrabajador(String codTrabajador) {
 
 		return trabajadorRepository.findByCodTrabajador(codTrabajador);
 	}
 
-	// método para obtener un usuarioAplicacion
+	/**
+	 * Obtiene un usuario de la aplicación por su email.
+	 *
+	 * @param email Email del usuario en la aplicación.
+	 * @return Un objeto `Optional` que puede contener el `UsuarioAplicacion`
+	 *         correspondiente o estar vacío.
+	 */
 	public Optional<UsuarioAplicacion> obtenerUsuarioAplicacion(String email) {
 
 		return usuarioAppRepository.findByEmail(email);
 	}
 
-	// hacer método para comprobar si es un usuario trabajador
+	/**
+	 * Verifica si un dato de entrada corresponde a un usuario trabajador existente.
+	 *
+	 * @param datoEntrada Código del trabajador o identificador.
+	 * @return `true` si el dato de entrada corresponde a un trabajador; `false` en
+	 *         caso contrario.
+	 */
 
 	public boolean isTrabajador(String datoEntrada) {
 		return trabajadorRepository.existsByCodTrabajador(datoEntrada);
 	}
-	
-	// método para comprobar si existe el email en la base de datos
+
+	/**
+	 * Verifica si existe un usuario con el email proporcionado.
+	 *
+	 * @param email Email del usuario.
+	 * @return `true` si el email existe en la base de datos; `false` en caso
+	 *         contrario.
+	 */
 	public boolean existeEmailUsuario(String email) {
 		if (usuarioAppRepository.existsByEmail(email)) {
 			return true;
@@ -56,6 +87,14 @@ public class UsuarioService {
 			return false;
 		}
 	}
+
+	/**
+	 * Guarda un nuevo usuario de la aplicación basado en los datos de registro
+	 * proporcionados.
+	 *
+	 * @param solicitudRegistro Objeto con los datos de registro del nuevo usuario.
+	 * @return El objeto `UsuarioAplicacion` recién creado.
+	 */
 	public UsuarioAplicacion guardar(EntradaRegistro solicitudRegistro) {
 
 		UsuarioAplicacion usuario = new UsuarioAplicacion();
@@ -68,14 +107,37 @@ public class UsuarioService {
 		return usuarioAppRepository.save(usuario);
 	}
 
-	public Optional<UsuarioAplicacion> buscarUsuarioAppPorId(Long usuarioId) {		
+	/**
+	 * Busca un usuario de la aplicación por su ID.
+	 *
+	 * @param usuarioId ID del usuario de la aplicación.
+	 * @return Un objeto `Optional` que puede contener el `UsuarioAplicacion`
+	 *         correspondiente o estar vacío.
+	 */
+	public Optional<UsuarioAplicacion> buscarUsuarioAppPorId(Long usuarioId) {
 		return usuarioAppRepository.findById(usuarioId.intValue());
 	}
-	// buscar Usuario por id
-	public Optional<Usuario> buscarPorId(Long usuarioId) {		
+
+	/**
+	 * Busca un usuario genérico por su ID.
+	 *
+	 * @param usuarioId ID del usuario.
+	 * @return Un objeto `Optional` que puede contener el `Usuario` correspondiente
+	 *         o estar vacío.
+	 */
+	public Optional<Usuario> buscarPorId(Long usuarioId) {
 		return usuarioRepository.findById(usuarioId.intValue());
-		
+
 	}
-	
+
+	/**
+	 * Obtiene una lista de todos los trabajadores.
+	 *
+	 * @return Lista de todos los objetos `UsuarioTrabajador`.
+	 */
+	public List<UsuarioTrabajador> listaTrabajadores() {
+		List<UsuarioTrabajador> lista = trabajadorRepository.findAll();
+		return lista;
+	}
 
 }

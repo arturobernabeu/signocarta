@@ -18,6 +18,23 @@ public class EntradaContacto implements Serializable{
 	private String motivo;
 	@NotBlank(message = "Introduzca un mensaje")
 	private String mensaje;
+	
+	public EntradaContacto(@NotBlank(message = "Introduzca un nombre") String nombre,
+			@NotBlank(message = "Introduzca un email") @Email(message = "Introduzca un email válido") String email,
+			@NotBlank(message = "Introduzca un motivo") String motivo,
+			@NotBlank(message = "Introduzca un mensaje") String mensaje) {
+		super();
+		this.nombre = nombre;
+		this.email = email;
+		this.motivo = motivo;
+		this.mensaje = mensaje;
+	}
+	
+	public EntradaContacto() {
+		super();
+	}
+
+
 	public String getNombre() {
 		return nombre;
 	}

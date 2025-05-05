@@ -11,13 +11,16 @@ import jakarta.persistence.OneToOne;
 
 @Entity
 public class Asignacion {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@OneToOne(cascade = CascadeType.ALL)
+	
+	@OneToOne
 	@JoinColumn(name = "id_solicitud", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_solicitud_asignacion"))
 	private Solicitud solicitud;
-	@OneToOne(cascade = CascadeType.ALL)
+
+	@OneToOne
 	@JoinColumn(name = "id_trabajador", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_usuarioTrabajador_asignacion"))
 	private UsuarioTrabajador usuarioTrabajador;
 

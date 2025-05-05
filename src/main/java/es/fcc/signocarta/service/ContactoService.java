@@ -7,14 +7,28 @@ import org.springframework.stereotype.Service;
 
 import es.fcc.signocarta.controller.entrada.EntradaContacto;
 
+/**
+ * Servicio responsable de gestionar el envío de correos electrónicos a través
+ * del formulario de contacto externo.
+ */
 @Service
 public class ContactoService {
 
-
+	/**
+	 * Componente de Spring para el envío de correos electrónicos.
+	 */
 	@Autowired
 	private JavaMailSender mailSender;
-	
 
+	/**
+	 * Envía un correo electrónico con los datos recibidos desde el formulario de
+	 * contacto.
+	 *
+	 * @param entradaContacto Objeto que contiene los datos del formulario de
+	 *                        contacto: nombre, email, motivo y mensaje.
+	 * @return Mensaje de éxito si el envío se realizó correctamente, o mensaje de
+	 *         error en caso de fallo.
+	 */
 	public String enviarEmail(EntradaContacto entradaContacto) {
 		String resultado = "";
 		try {
@@ -26,7 +40,7 @@ public class ContactoService {
 			mailSender.send(message);
 			resultado = "Mensaje enviado correctamente";
 		} catch (Exception e) {
-			resultado = "Error al enviar el mensaje"+ e.getMessage();
+			resultado = "Error al enviar el mensaje" + e.getMessage();
 		}
 		return resultado;
 

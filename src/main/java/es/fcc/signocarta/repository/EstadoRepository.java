@@ -7,5 +7,7 @@ import es.fcc.signocarta.modelo.Estado;
 
 @Repository
 public interface EstadoRepository extends JpaRepository<Estado, Integer>{
+	
+	Estado getReferenceById(Integer id);
 
 }

@@ -1,0 +1,46 @@
+<!-- fragments/modalPresupuesto.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <div th:fragment="modalPresupuesto(salida)">
+        <div class="modal fade" th:attr="id='modalPresupuesto__' + ${salida.id}" tabindex="-1" th:attrappend="aria-labelledby='modalPresupuestoLabel__' + ${salida.id}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" th:attr="id='modalPresupuestoLabel__' + ${salida.id}">
+                        Presupuesto Analizado
+                    </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <p>
+                            Hemos analizado su archivo enviado
+                            <span th:text="${salida.docEntrada.nombre}"></span> y le presentamos el siguiente presupuesto:
+                        </p>
+                        <p><strong>Importe:</strong>
+                            <span th:text="${salida.presupuesto != null ? salida.presupuesto.importe : ''}"></span> €
+                        </p>
+                    </div>
+
+                    <div th:if="${salida.presupuesto != null}">
+                        <div th:if="${salida.presupuesto?.fecha_pago == null and rolId == 3}" class="modal-footer">
+                            <form th:action="@{/presupuesto/rechazar/{id}(id=${salida.id})}" method="post">
+                                <button type="submit" class="btn btn-danger">Rechazar</button>
+                            </form>
+                            <form th:action="@{/presupuesto/pagar/{id}(id=${salida.id})}" method="post">
+                                <button type="submit" class="btn btn-success">Pagar</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

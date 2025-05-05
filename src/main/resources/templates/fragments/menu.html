@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
 <div class="sidebar-menu" th:fragment="menu">
-    <ul class="menu">   		
-        <li th:class="'sidebar-item ' + (${paginaActual} == 'index' ? 'active' : '')" >
+    <ul class="menu">
+        <li th:class="'sidebar-item ' + (${paginaActual} == 'index' ? 'active' : '')">
             <a th:href="@{/index}" class="sidebar-link">
                 <i class="bi bi-house"></i>
                 <span>Inicio</span>
@@ -14,9 +14,8 @@
                 <span>Solicitudes</span>
             </a>
         </li>
-        
-       <li th:if="${rolId == 1 or rolId == 2}"
-  				  th:class="'sidebar-item ' + (${paginaActual} == 'adm-solicitudes' ? 'active' : '')">
+
+        <li th:if="${rolId == 1 or rolId == 2}" th:class="'sidebar-item ' + (${paginaActual} == 'adm-solicitudes' ? 'active' : '')">
             <a th:href="@{/adm-solicitudes}" class="sidebar-link">
                 <i class="bi bi-nut"></i>
                 <span>Admin. solicitudes</span>

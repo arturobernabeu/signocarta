@@ -15,18 +15,37 @@ import es.fcc.signocarta.service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
+/**
+ * Controlador encargado de gestionar el proceso de autenticación de usuarios.
+ * Permite acceder al formulario de login, validar credenciales, gestionar
+ * sesiones y cerrar sesión.
+ */
 @Controller
 public class LoginController {
 
 	private final LoginService loginService;
 	private final UsuarioService usuarioService;
 
+	/**
+	 * Constructor que inyecta los servicios necesarios para la autenticación.
+	 *
+	 * @param loginService   Servicio para la validación de credenciales.
+	 * @param usuarioService Servicio para el acceso y gestión de usuarios.
+	 */
 	public LoginController(LoginService loginService, UsuarioService usuarioService) {
 		super();
 		this.loginService = loginService;
 		this.usuarioService = usuarioService;
 	}
 
+	/**
+	 * Muestra la pantalla de login. Invalida cualquier sesión previa activa para
+	 * evitar conflictos de sesión.
+	 *
+	 * @param session Sesión HTTP.
+	 * @param model   Modelo de atributos para la vista.
+	 * @return La vista "login".
+	 */
 	@RequestMapping(value = { "/", "/login" })
 	public String login(HttpSession session, Model model) {
 		// si accedemos en cualquier momento a la pantalla de login, se debe cerrar
@@ -38,6 +57,19 @@ public class LoginController {
 		return "login";
 	}
 
+	/**
+	 * Procesa el formulario de login. Valida si el usuario existe (ya sea por email
+	 * o por nombre de trabajador) y verifica la contraseña. Si las credenciales son
+	 * correctas, establece la sesión y redirige a la vista principal.
+	 *
+	 * @param entradaAcceso Datos introducidos por el usuario en el formulario.
+	 * @param result        Resultado de la validación de los datos.
+	 * @param model         Modelo para pasar atributos a la vista.
+	 * @param session       Sesión HTTP para almacenar el ID del usuario
+	 *                      autenticado.
+	 * @return Redirección a "index" si el login es exitoso, o vuelve a "login" en
+	 *         caso contrario.
+	 */
 	@PostMapping("/acceso")
 	public String acceso(@Valid @ModelAttribute("EntradaAcceso") EntradaAcceso entradaAcceso, BindingResult result,
 			Model model, HttpSession session) {
@@ -60,7 +92,7 @@ public class LoginController {
 				result.rejectValue("nombreAcceso", "error.email", "El email no está registrado");
 				return "login";
 			} // sino comprobaremos si es un trabajador
-		} else if (loginService.isTrabajador(entradaAcceso.getNombreAcceso())) {
+		} else if (usuarioService.isTrabajador(entradaAcceso.getNombreAcceso())) {
 			usuario = usuarioService.obtenerUsuarioTrabajador(entradaAcceso.getNombreAcceso()).get();// alamacenamos
 																										// usuario
 																										// trabajador
@@ -93,6 +125,13 @@ public class LoginController {
 			return "login";
 	}
 
+	/**
+	 * Cierra la sesión del usuario y redirige a la pantalla de login con un
+	 * indicador de cierre de sesión.
+	 *
+	 * @param session Sesión actual del usuario.
+	 * @return Redirección al login.
+	 */
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate(); // borra todo

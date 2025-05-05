@@ -12,18 +12,37 @@ import es.fcc.signocarta.service.PerfilService;
 import es.fcc.signocarta.service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * Controlador encargado de gestionar la visualización y actualización del
+ * perfil de usuario. Solo los usuarios autenticados pueden acceder a estas
+ * funcionalidades.
+ */
 @Controller
 public class PerfilController {
 
 	private final UsuarioService usuarioService;
 	private final PerfilService perfilService;
 
+	/**
+	 * Constructor que inyecta los servicios necesarios para la gestión de perfil.
+	 *
+	 * @param usuarioService Servicio de usuarios.
+	 * @param perfilService  Servicio para operaciones relacionadas con el perfil.
+	 */
 	public PerfilController(UsuarioService usuarioService, PerfilService perfilService) {
 		super();
 		this.usuarioService = usuarioService;
 		this.perfilService = perfilService;
 	}
 
+	/**
+	 * Muestra la pantalla del perfil del usuario autenticado. Si no hay sesión
+	 * activa, redirige al login.
+	 *
+	 * @param session Sesión HTTP que contiene el ID del usuario autenticado.
+	 * @param model   Modelo de datos para la vista.
+	 * @return La vista "perfil", o redirección a login si no hay sesión activa.
+	 */
 	@RequestMapping("/perfil")
 	public String perfil(HttpSession session, Model model) {
 
@@ -38,7 +57,8 @@ public class PerfilController {
 			return "redirect:/login";
 		}
 		Usuario usuarioLogado = usuarioService.buscarPorId(usuarioId).get();// almaceno el usuario logado
-		// paso el idRol al modelo para controlar las opciones que tienen que aparecer en el menu lateral
+		// paso el idRol al modelo para controlar las opciones que tienen que aparecer
+		// en el menu lateral
 		int rolId = usuarioLogado.getRol().getId();
 		model.addAttribute("rolId", rolId);
 
@@ -47,6 +67,14 @@ public class PerfilController {
 		return "perfil";
 	}
 
+	/**
+	 * Procesa la actualización del perfil del usuario autenticado. Si el usuario no
+	 * está logado, redirige a login.
+	 *
+	 * @param datos   Objeto que contiene los datos del formulario de perfil.
+	 * @param session Sesión HTTP para obtener el ID del usuario actual.
+	 * @return Redirección a la pantalla de perfil con parámetro de confirmación.
+	 */
 	@PostMapping("/perfil/guardar")
 	public String guardarPerfil(@ModelAttribute EntradaRegistro datos, HttpSession session) {
 

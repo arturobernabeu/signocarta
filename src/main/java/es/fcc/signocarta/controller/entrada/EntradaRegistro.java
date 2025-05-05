@@ -20,6 +20,25 @@ public class EntradaRegistro implements Serializable {
 	private String password;
 	
 	private String passwordRepeat;
+	
+	public EntradaRegistro(@NotBlank(message = "Introduzca un nombre") String nombre,
+			@NotBlank(message = "Introduzca un apellido") String apellidos,
+			@NotBlank(message = "Introduzca un email") @Email(message = "Introduzca un email válido") String email,
+			@Pattern(regexp = "^(?=.*[A-Z])(?=.*\\d).{6,}$", message = "La contraseña debe tener al menos 6 caracteres, una mayúscula y un número") String password,
+			String passwordRepeat) {
+		super();
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.email = email;
+		this.password = password;
+		this.passwordRepeat = passwordRepeat;
+	}
+
+	public EntradaRegistro() {
+		super();
+	}
+
+
 
 	public String getNombre() {
 		return nombre;

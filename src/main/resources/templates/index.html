@@ -1,195 +1,164 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Inicio - SignoCarta</title>
-<link rel="preconnect" href="https://fonts.gstatic.com" />
-<link
-	href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
-	rel="stylesheet" />
-<link rel="stylesheet" th:href="@{/assets/css/bootstrap.css}" />
-<link rel="stylesheet" th:href="@{assets/vendors/iconly/bold.css}" />
-<link rel="stylesheet"
-	href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css" />
-<link rel="stylesheet"
-	th:href="@{/assets/vendors/bootstrap-icons/bootstrap-icons.css}" />
-<link rel="stylesheet" th:href="@{/assets/css/app.css}" />
-<link rel="icon" th:href="@{/assets/css/pages/auth.css}"
-	type="image/x-icon" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio - SignoCarta</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" th:href="@{/assets/css/bootstrap.css}" />
+    <link rel="stylesheet" th:href="@{assets/vendors/iconly/bold.css}" />
+    <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" th:href="@{/assets/vendors/bootstrap-icons/bootstrap-icons.css}" />
+    <link rel="stylesheet" th:href="@{/assets/css/app.css}" />
+    <link rel="icon" th:href="@{/assets/css/pages/auth.css}" type="image/x-icon" />
 </head>
 
 <body>
-	<div id="app">
-		<div id="sidebar" class="active">
-			<div class="sidebar-wrapper active">
-				<div class="sidebar-header">
-					<div class="d-flex justify-content-between align-items-center">
-						<div class="logo d-flex align-items-center">
-							<a href="index.html"> <img th:src="@{/assets/images/logo/logo.png}"
-								alt="Logo" class="logo-img" style="height: 60px;" />
-							</a>
-						</div>
-						<div class="toggler">
-							<a href="#" class="sidebar-hide d-xl-none d-block"> <i
-								class="bi bi-x bi-middle"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-				<!-- Menu -->
-				<div th:replace="~{fragments/menu :: menu}"></div>
-			</div>
-		</div>
+    <div id="app">
+        <div id="sidebar" class="active">
+            <div class="sidebar-wrapper active">
+                <div class="sidebar-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="logo d-flex align-items-center">
+                            <a href="index.html"> <img th:src="@{/assets/images/logo/logo.png}" alt="Logo" class="logo-img" style="height: 60px;" />
+                            </a>
+                        </div>
+                        <div class="toggler">
+                            <a href="#" class="sidebar-hide d-xl-none d-block"> <i class="bi bi-x bi-middle"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Menu -->
+                <div th:replace="~{fragments/menu :: menu}"></div>
+            </div>
+        </div>
 
-		<div id="main">
-			<!-- Botón de cerrar sesión -->
-			<div th:replace="~{fragments/BtnCerrarSesion :: btn-cerrar-sesion}"></div>
+        <div id="main">
+            <!-- Botón de cerrar sesión -->
+            <div th:replace="~{fragments/BtnCerrarSesion :: btn-cerrar-sesion}"></div>
 
 
-			<header class="mb-3">
-				<a href="#" class="burger-btn d-block d-xl-none"> <i
-					class="bi bi-justify fs-3"></i>
-				</a>
-			</header>
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none"> <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
 
-			<div class="page-heading">
-				<h3>SignoCarta</h3>
-			</div>
-			<div class="page-content">
-				<section class="row">
-					<div class="col-12">
-						<div id="carouselExampleCaptions" class="carousel slide"
-							data-bs-ride="carousel">
-							<div class="carousel-indicators">
-								<button type="button" data-bs-target="#carouselExampleCaptions"
-									data-bs-slide-to="0" class="active" aria-current="true"
-									aria-label="Slide 1"></button>
-								<button type="button" data-bs-target="#carouselExampleCaptions"
-									data-bs-slide-to="1" aria-label="Slide 2"></button>
-								<button type="button" data-bs-target="#carouselExampleCaptions"
-									data-bs-slide-to="2" aria-label="Slide 3"></button>
-							</div>
-							<div class="carousel-inner">
-								<div class="carousel-item active">
-									<img src="./assets/images/carrusel/01.jpg"
-										class="d-block w-100" alt="..."
-										style="max-height: 500px; width: 100%; object-fit: cover;" />
-									<div class="carousel-caption d-none d-md-block">
-										<h3
-											style="color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
+            <div class="page-heading">
+                <h3>SignoCarta</h3>
+            </div>
+            <div class="page-content">
+                <section class="row">
+                    <div class="col-12">
+                        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-indicators">
+                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            </div>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="./assets/images/carrusel/01.jpg" class="d-block w-100" alt="..." style="max-height: 500px; width: 100%; object-fit: cover;" />
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h3 style="color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
 											Accesibilidad sin barreras</h3>
-										<h5
-											style="color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);">
+                                        <h5 style="color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);">
 											Traducción en lengua de signos de documentos oficiales para
 											una comunicación clara y efectiva.</h5>
-									</div>
-								</div>
-								<div class="carousel-item">
-									<img src="./assets/images/carrusel/02.jpg"
-										class="d-block w-100" alt="..."
-										style="max-height: 500px; width: 100%; object-fit: cover;" />
-									<div class="carousel-caption d-none d-md-block">
-										<h3
-											style="color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Tu
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="./assets/images/carrusel/02.jpg" class="d-block w-100" alt="..." style="max-height: 500px; width: 100%; object-fit: cover;" />
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h3 style="color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Tu
 											derecho a la información</h3>
-										<h5
-											style="color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);">
+                                        <h5 style="color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);">
 											Facilitamos el acceso a documentos gubernamentales, jurídicos
 											y administrativos en lengua de signos.</h5>
-									</div>
-								</div>
-								<div class="carousel-item">
-									<img src="./assets/images/carrusel/03.png"
-										class="d-block w-100" alt="..."
-										style="max-height: 500px; width: 100%; object-fit: cover;" />
-									<div class="carousel-caption d-none d-md-block">
-										<h3
-											style="color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="./assets/images/carrusel/03.png" class="d-block w-100" alt="..." style="max-height: 500px; width: 100%; object-fit: cover;" />
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h3 style="color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
 											Interpretación confiable y profesional</h3>
-										<h5
-											style="color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);">
+                                        <h5 style="color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);">
 											Servicios especializados para garantizar comprensión y
 											autonomía en cada trámite.</h5>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="container mt-5">
-					<div class="row text-center">
-						<div class="col-12">
-							<h2 class="fw-bold">SignoCarta es una herramienta para
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="container mt-5">
+                    <div class="row text-center">
+                        <div class="col-12">
+                            <h2 class="fw-bold">SignoCarta es una herramienta para
 								derribar una de las barreras de comunicación que puede
 								encontrarse una persona sorda, la comprensión lectoescritora.</h2>
 
-							<h5 class="text-muted">Ofrecemos un servicio basado en
+                            <h5 class="text-muted">Ofrecemos un servicio basado en
 								traducir un texto de un vocabulario que normalmente no maneje y
 								devolverlo en lengua de signos y viceversa. Centrado
 								principalmente en documentos oficiales, documentos bancarios,
 								contratos...</h5>
-						</div>
-					</div>
+                        </div>
+                    </div>
 
-					<div class="row mt-4">
-						<div class="col-md-4">
-							<div class="card text-center">
-								<img src="./assets/images/samples/traduccion.jpg"
-									alt="Traducción" class="card-img-top"
-									style="width: 100%; height: 250px; object-fit: cover;">
-								<div class="card-body">
-									<h4 class="mt-3">Traducción de documentos</h4>
-									<p>Convertimos documentos escritos en lengua de signos para
-										su accesibilidad.</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="card text-center">
-								<img src="./assets/images/samples/asistencia.jpg"
-									alt="Asistencia personalizada" class="card-img-top"
-									style="width: 100%; height: 250px; object-fit: cover;">
-								<div class="card-body">
-									<h4 class="mt-3">Asistencia personalizada</h4>
-									<p>Apoyo en gestiones administrativas y asesoramiento
-										especializado.</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="card text-center">
-								<img src="./assets/images/samples/contenido.jpg"
-									alt="Contenido gratuito" class="card-img-top"
-									style="width: 100%; height: 250px; object-fit: cover;">
-								<div class="card-body">
-									<h4 class="mt-3">Contenido gratuito</h4>
-									<p>Ofrecemos acceso sin costo a recursos para la igualdad
-										de oportunidades en la comunicación.</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-			</div>
-			<footer>
-				<div class="footer clearfix mb-0 text-muted">
-					<div class="float-start">
-						<p>2025 &copy; SignoCarta</p>
-					</div>
-					<div class="float-end">
-						<p>Desarrollado por Francisca Calatayud Castillo</p>
-					</div>
-				</div>
-			</footer>
-		</div>
-	</div>
-	<script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-	<script src="assets/js/bootstrap.bundle.min.js"></script>
-	<script src="assets/vendors/apexcharts/apexcharts.js"></script>
-	<script src="assets/js/pages/dashboard.js"></script>
-	<script src="assets/js/main.js"></script>
-	<script src="assets/js/logout.js"></script>
-	<!--  <script src="assets/js/menu.js"></script>-->
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <div class="card text-center">
+                                <img src="./assets/images/samples/traduccion.jpg" alt="Traducción" class="card-img-top" style="width: 100%; height: 250px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h4 class="mt-3">Traducción de documentos</h4>
+                                    <p>Convertimos documentos escritos en lengua de signos para su accesibilidad.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card text-center">
+                                <img src="./assets/images/samples/asistencia.jpg" alt="Asistencia personalizada" class="card-img-top" style="width: 100%; height: 250px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h4 class="mt-3">Asistencia personalizada</h4>
+                                    <p>Apoyo en gestiones administrativas y asesoramiento especializado.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card text-center">
+                                <img src="./assets/images/samples/contenido.jpg" alt="Contenido gratuito" class="card-img-top" style="width: 100%; height: 250px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h4 class="mt-3">Contenido gratuito</h4>
+                                    <p>Ofrecemos acceso sin costo a recursos para la igualdad de oportunidades en la comunicación.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <footer>
+                <div class="footer clearfix mb-0 text-muted">
+                    <div class="float-start">
+                        <p>2025 &copy; SignoCarta</p>
+                    </div>
+                    <div class="float-end">
+                        <p>Desarrollado por Francisca Calatayud Castillo</p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendors/apexcharts/apexcharts.js"></script>
+    <script src="assets/js/pages/dashboard.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/logout.js"></script>
+    <!--  <script src="assets/js/menu.js"></script>-->
 </body>
+
 </html>

@@ -3,16 +3,15 @@ package es.fcc.signocarta.controller.salida;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.springframework.web.multipart.MultipartFile;
 
 import es.fcc.signocarta.modelo.Documento;
-import es.fcc.signocarta.modelo.Estado;
 import es.fcc.signocarta.modelo.Presupuesto;
 
 public class SalidaHistorico implements Serializable{
 
 
 	private static final long serialVersionUID = 4264899222515925793L;
+	private Integer id;
 	private Date fecha;
 	private Documento docEntrada;
 	private String estado;
@@ -47,6 +46,12 @@ public class SalidaHistorico implements Serializable{
 	}
 	public void setDocSalida(Documento docSalida) {
 		this.docSalida = docSalida;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 
