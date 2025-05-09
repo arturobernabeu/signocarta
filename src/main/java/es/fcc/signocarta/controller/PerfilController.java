@@ -83,6 +83,7 @@ public class PerfilController {
 		Object usuarioIdObj = session.getAttribute("usuarioId");
 		Long usuarioId;
 		usuarioId = (Long) usuarioIdObj;
+		Usuario usuarioLogado = usuarioService.buscarPorId(usuarioId).get();
 
 		if (usuarioId == null) {
 			return "redirect:/login";
@@ -98,14 +99,16 @@ public class PerfilController {
 			return "perfil";
 		}
 		
-		if (datos.getEmail().isBlank()) {
-			result.rejectValue("email", "error.email", "No puede dejar su email en blanco.");
-			return "perfil";
-		}
-		
-		if (!Validation.isEmail(datos.getEmail())) {
-			result.rejectValue("email", "error.email", "Escriba un email válido");
-			return "registro";
+		if(usuarioLogado.getRol().getId()==3){
+			if (datos.getEmail().isBlank()) {
+				result.rejectValue("email", "error.email", "No puede dejar su email en blanco.");
+				return "perfil";
+			}
+			
+			if (!Validation.isEmail(datos.getEmail())) {
+				result.rejectValue("email", "error.email", "Escriba un email válido");
+				return "registro";
+			}
 		}
 		
 		if (!datos.esPasswordModificada()) {
